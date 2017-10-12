@@ -40,4 +40,4 @@ class WorkLogWithDB(Entry, EntryTasks, SearchInExisting):
 
 
 if __name__ == '__main__':
-	foo = WorkLogWithDB()
+	WorkLogWithDB()

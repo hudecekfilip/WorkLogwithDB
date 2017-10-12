@@ -3,19 +3,19 @@ from database import Entry
 class SearchInExisting:
     def search_in_existing(self):
         self.search_output = self.search_in_existing_choose()
-        self.search_by_what()
+        self.search_by_what(self.search_output)
 
 
-    def search_by_what(self):
-        if self.search_output.upper() == "A":
+    def search_by_what(self, arg):
+        if arg.upper() == "A":
             self.search_by_employee()
-        elif self.search_output.upper() == "B":
+        elif arg.upper() == "B":
             self.search_by_dates()
-        elif self.search_output.upper() == "C":
+        elif arg.upper() == "C":
             self.search_by_times()
-        elif self.search_output.upper() == "D":
+        elif arg.upper() == "D":
             self.search_by_search_term()
-        elif self.search_output.upper() == "E":
+        elif arg.upper() == "E":
             self.what_to_do()
         else:
             print("You entered the wrong value!")

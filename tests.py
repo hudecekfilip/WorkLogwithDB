@@ -8,6 +8,7 @@ from datetime import datetime
 from database import Entry
 from entry_tasks import EntryTasks
 from search_in_existing import SearchInExisting
+from worklog_with_db import WorkLogWithDB
 
 TEST_DB = SqliteDatabase(':memory:')
 TEST_DB.connect()
@@ -46,14 +47,6 @@ class WorkLogTests(unittest.TestCase):
             assert foo.title_of_the_task() == DATA["title"]
 
 
-    def test_time_spent(self):
-        foo = EntryTasks()
-        with mock.patch('builtins.input', side_effect=[45],
-            return_value=DATA["spent"]):
-            assert foo.time_spent() == DATA["spent"]
-
-
-
     def test_taks_note_get(self):
         foo = EntryTasks()
         with mock.patch('builtins.input', side_effect=["These are my notes."],
@@ -61,9 +54,34 @@ class WorkLogTests(unittest.TestCase):
             assert foo.task_note_get() == DATA["note"]
 
 
+    def test_username(self):
+        foo = EntryTasks()
+        self.assertEqual(foo.task_username_2("Filip"), "Filip")
 
 
+    def test_dates(self):
+        foo = EntryTasks()
+        self.assertEqual(foo.date_of_the_task_2("25/01/1990"), "25/01/1990")
 
+
+    def test_title(self):
+        foo = EntryTasks()
+        self.assertEqual(foo.title_of_the_task_2("Test Title"), "Test Title")
+
+
+    def test_time(self):
+        foo = EntryTasks()
+        self.assertEqual(foo.time_spent_2(45), 45)
+
+
+    def test_note(self):
+        foo = EntryTasks()
+        self.assertEqual(foo.task_note_get_2("Test Note"), "Test Note")
+
+
+    def test_note_2(self):
+        foo = SearchInExisting()
+        self.assertEqual(foo.search_by_what("A"), foo.add_new_entry)
 
 
 if __name__ == "__main__":
