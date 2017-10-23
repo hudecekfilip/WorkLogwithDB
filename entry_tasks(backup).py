@@ -6,15 +6,10 @@ from database import Entry
 class EntryTasks:
     def add_new_entry(self):
         self.task_name = self.task_username()
-        self.task_username_2(self.task_name)
         self.task_date = self.date_of_the_task()
-        self.date_of_the_task_2(self.task_date)
         self.task_title = self.title_of_the_task()
-        self.title_of_the_task_2(self.task_title)
         self.task_time = self.time_spent()
-        self.time_spent_2(self.task_time)
         self.task_note = self.task_note_get()
-        self.task_note_get_2(self.task_note)
         self.add_entries()
         input("You entry has been added. Press enter to return to the menu")
 
@@ -29,80 +24,54 @@ class EntryTasks:
     def task_username(self):
         print("Insert your name:")
         self.task_name = input("< ")
-        return self.task_name
-
-
-    def task_username_2(self, arg):
-        if not arg:
+        if not self.task_name:
             self.task_username()
-        else:
-            self.clear_screen()
-            return arg
+        self.clear_screen()
+        return self.task_name
 
 
     def date_of_the_task(self):
         print("Date of the task")
         print("Please use DD/MM/YYYY format:")
         self.task_date = input("> ")
-        return self.task_date
-
-
-    def date_of_the_task_2(self, arg2):
         try:
-            datetime.datetime.strptime(arg2, '%d/%m/%Y')
+            datetime.datetime.strptime(self.task_date, '%d/%m/%Y')
         except ValueError:
+            print("Incorrect data format, should be DD/MM/YYYY!")
+            input("Press enter to continue")
             self.date_of_the_task()
-        else:
-            self.clear_screen()
-            return arg2
+        self.clear_screen()
+        return self.task_date
 
 
     def title_of_the_task(self):
         print("Title of the task")
         self.task_title = input("> ")
-        return self.task_title
-
-
-    def title_of_the_task_2(self, arg3):
-        if not arg3:
+        if not self.task_title:
             print("You have to enter the title of the task!")
             input("Press enter to continue")
             self.title_of_the_task()
         self.clear_screen()
-        return arg3
+        return self.task_title
 
 
     def time_spent(self):
         print("Time spent (rounded minutes)")
         self.task_time = input("> ")
-        return self.task_time
-
-
-    def time_spent_2(self, arg4):
-        print(arg4)
         try:
-            int(arg4)
+            self.task_time = int(self.task_time)
         except ValueError:
             print("You have to enter the time spent!")
             input("Press enter to continue")
             self.time_spent()
         self.clear_screen()
-        return arg4
+        return self.task_time
 
 
     def task_note_get(self):
-        print("Enter your note!")
+        print("Enter your note (optional) or press enter to continue")
         self.task_note = input("< ")
         return self.task_note
-
-
-    def task_note_get_2(self, arg5):
-        if not arg5:
-            print("You have to enter the note!")
-            input("Press enter to continue")
-            self.task_note_get()
-        self.clear_screen()
-        return arg5
 
 
     def add_entries(self):

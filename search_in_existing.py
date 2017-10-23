@@ -94,17 +94,26 @@ class SearchInExisting:
 
 
     def next_edit_delete_or_return(self):
+        self.edit = self.next_edit_delete_or_return_1()
+        self.next_edit_delete_or_return_2(self.edit)
+
+
+    def next_edit_delete_or_return_1(self):
         self.edit = input("< ")
-        if self.edit.upper() == "N":
+        return self.edit
+
+
+    def next_edit_delete_or_return_2(self, arg):
+        if arg.upper() == "N":
             pass
-        elif self.edit.upper() == "E":
+        elif arg.upper() == "E":
             self.add_new_entry()
             self.row.delete_instance()
             print("The entry has been edited!")
-        elif self.edit.upper() == "D":
+        elif arg.upper() == "D":
             self.row.delete_instance()
             print("The entry has been deleted!")
-        elif self.edit.upper() == "R":
+        elif arg.upper() == "R":
             self.search_in_existing()
         else:
             self.next_edit_delete_or_return()

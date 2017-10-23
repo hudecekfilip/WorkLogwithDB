@@ -4,6 +4,7 @@ import unittest.mock as mock
 from playhouse.test_utils import test_database
 from peewee import *
 from datetime import datetime
+from mock import patch
 
 from database import Entry
 from entry_tasks import EntryTasks
@@ -79,9 +80,52 @@ class WorkLogTests(unittest.TestCase):
         self.assertEqual(foo.task_note_get_2("Test Note"), "Test Note")
 
 
-    def test_note_2(self):
+    @patch('__main__.SearchInExisting.search_by_what')
+    def test_search_by_employee(self, mock):
+        arg = "A"
         foo = SearchInExisting()
-        self.assertEqual(foo.search_by_what("A"), foo.add_new_entry)
+        foo.search_by_what(arg)
+        self.assertTrue(mock.called)
+
+
+    @patch('__main__.SearchInExisting.search_by_dates')
+    def test_search_by_dates(self, mock):
+        arg = "B"
+        foo = SearchInExisting()
+        foo.search_by_what(arg)
+        self.assertTrue(mock.called)
+
+
+    @patch('__main__.SearchInExisting.search_by_times')
+    def test_search_by_times(self, mock):
+        arg = "C"
+        foo = SearchInExisting()
+        foo.search_by_what(arg)
+        self.assertTrue(mock.called)
+
+
+    @patch('__main__.SearchInExisting.search_by_search_term')
+    def test_search_by_search_term(self, mock):
+        arg = "D"
+        foo = SearchInExisting()
+        foo.search_by_what(arg)
+        self.assertTrue(mock.called)
+
+
+    @patch('__main__.SearchInExisting.search_in_existing')
+    def test_what_to_do(self, mock):
+        arg = "Q"
+        foo = SearchInExisting()
+        foo.search_by_what(arg)
+        self.assertTrue(mock.called)
+
+
+    @patch('__main__.SearchInExisting.search_in_existing')
+    def test_in_existing(self, mock):
+        arg = "R"
+        foo = SearchInExisting()
+        foo.next_edit_delete_or_return_2(arg)
+        self.assertTrue(mock.called)
 
 
 if __name__ == "__main__":
